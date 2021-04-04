@@ -31,17 +31,21 @@ o_img = pygame.transform.scale(o_img, xo_dim)
 
 # Game
 game = Game()
-game.play(0, 0)
-game.play(1, 1)
 
 while 1:
+    cells = get_cells(grid_pos, cell_dim, grid_dim)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+            for l in range(3):
+                for c in range(3):
+                    if cells[l][c].collidepoint(event.pos):
+                        game.play(l, c)
 
     
     screen.fill(background_color)
     
-    # draw_grid(screen, grid_pos, cell_dim, grid_dim, grid_color)
     draw_board(screen, game, grid_pos, cell_dim, grid_color, x_img, o_img)
     pygame.display.flip()

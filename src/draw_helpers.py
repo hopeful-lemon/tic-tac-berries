@@ -18,6 +18,19 @@ def draw_grid(surface, grid_pos, cell_dim, grid_dim, color):
             r = pygame.Rect(x + c*w, y + l*h, w, h)
             pygame.draw.rect(surface, color, r, width = 3)
 
+def get_cells(grid_pos, cell_dim, grid_dim):
+    x, y = grid_pos
+    w, h = cell_dim
+    lines, columns = grid_dim
+
+    cells = []
+    for l in range(lines):
+        line = []
+        for c in range(columns):
+            line.append(pygame.Rect(x + c*w, y + l*h, w, h))
+        cells.append(line)
+    return cells
+
 
 def draw_board(surface, game, grid_pos, cell_dim, color, x_img, o_img):
     x, y = grid_pos
