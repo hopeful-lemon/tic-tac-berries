@@ -48,7 +48,7 @@ def draw_board(surface, game, grid_pos, cell_dim, color, x_img, o_img):
             elif(game.grid[l][c] == 'o'):
                 surface.blit(o_img, r)
 
-def draw_bottom_bar(surface, dim, turn, xo_images, ui_panel, ui_value, ui_btn_music, ui_btn_menu):
+def get_bottom_bar_rects(surface, dim, turn, xo_images, ui_panel, ui_value, ui_btn_music, ui_btn_menu):
     panel_rect = ui_panel.get_rect()
     panel_rect.x = dim[0]/2 - panel_rect.w/2
     panel_rect.y = dim[1] - 100
@@ -65,15 +65,23 @@ def draw_bottom_bar(surface, dim, turn, xo_images, ui_panel, ui_value, ui_btn_mu
     ui_value_rect.x = panel_rect.x + 40 
     ui_value_rect.y = panel_rect.y + 20
 
+    turn_rect = ui_value_rect
+    
+    return [panel_rect, btn_menu_rect, btn_music_rect, ui_value_rect, turn_rect]
+
+
+def draw_bottom_bar(surface, dim, turn, xo_images, ui_panel, ui_value, ui_btn_music, ui_btn_menu):
+    
+    panel_rect, btn_menu_rect, btn_music_rect, ui_value_rect, turn_rect = get_bottom_bar_rects(
+        surface, dim, turn, xo_images, ui_panel, ui_value, ui_btn_music, ui_btn_menu)
+
     surface.blit(ui_panel, panel_rect)
     surface.blit(ui_btn_menu, btn_menu_rect)
     surface.blit(ui_btn_music, btn_music_rect)
     surface.blit(ui_value, ui_value_rect)
-    turn_rect = ui_value_rect
     turn_rect.x += ui_value_rect.w/2 - 25
     surface.blit(xo_images[0 if turn=='x' else 1], turn_rect)
 
-    return []
 
 
 
