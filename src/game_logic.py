@@ -12,6 +12,8 @@ class Game:
         self.turn = turns[(turns.index(self.turn) + 1) % 2]
 
     def play(self, x, y):
+        if self.grid[x][y] != '.':
+            return
         self.grid[x][y] = self.turn
         self.next_turn()
 

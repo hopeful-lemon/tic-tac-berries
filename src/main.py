@@ -43,6 +43,7 @@ game = Game()
 
 while 1:
     cells = get_cells(grid_pos, cell_dim, grid_dim)
+    bottom_bar_rects = get_bottom_bar_rects(size, ui_panel, ui_value, ui_btn_music, ui_btn_menu)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -52,6 +53,12 @@ while 1:
                 for c in range(3):
                     if cells[l][c].collidepoint(event.pos):
                         game.play(l, c)
+            if bottom_bar_rects[1].collidepoint(event.pos):
+                print("MENU (Not implemented yet)")
+                #menu
+            elif bottom_bar_rects[2].collidepoint(event.pos):
+                print("MUSIC (Not implemented yet)")
+                #music
        
 
     
