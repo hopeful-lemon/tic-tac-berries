@@ -3,6 +3,7 @@ class Game:
     def __init__(self, first='o'):
         self.grid = [['.' for k in range(3)] for n in range(3)]
         self.turn = first
+        self.first = first
     
     def get_turn(self): 
         return self.turn
@@ -48,3 +49,7 @@ class Game:
         if(winner != '.'): return winner
 
         return '.'
+    def reset(self):
+        self.grid = [['.' for k in range(3)] for n in range(3)]
+        self.turn = self.first
+        

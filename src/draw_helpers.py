@@ -83,6 +83,41 @@ def draw_bottom_bar(surface, dim, turn, xo_images, ui_panel, ui_value, ui_btn_mu
     surface.blit(xo_images[0 if turn=='x' else 1], turn_rect)
 
 
+def get_top_bar_rects(dim, ui_panel, ui_value, ui_btn_replay):
+    panel_rect = ui_panel.get_rect()
+    panel_rect.x = dim[0]/2 - panel_rect.w/2
+    panel_rect.y = -220
+    
+    btn_replay_rect = ui_btn_replay.get_rect()
+    btn_replay_rect.x = panel_rect.x + panel_rect.w - btn_replay_rect.w - 50
+    btn_replay_rect.y = panel_rect.y + 225
+
+    # btn_music_rect = ui_btn_music.get_rect()
+    # btn_music_rect.x = panel_rect.x + panel_rect.w - 2*btn_music_rect.w - 55
+    # btn_music_rect.y = panel_rect.y + 20
+
+    ui_value_rect = ui_value.get_rect()
+    ui_value_rect.x = panel_rect.x + 40 
+    ui_value_rect.y = panel_rect.y + 225
+
+    # turn_rect = ui_value_rect
+    
+    return [panel_rect, ui_value_rect, btn_replay_rect]
+
+
+def draw_top_bar(surface, dim, game, xo_images, ui_panel, ui_value, ui_btn_replay):
+    
+    panel_rect, ui_value_rect, btn_replay_rect = get_top_bar_rects(
+        dim, ui_panel, ui_value, ui_btn_replay)
+
+    surface.blit(ui_panel, panel_rect)
+    
+    surface.blit(ui_btn_replay, btn_replay_rect)
+    surface.blit(ui_value, ui_value_rect)
+    # turn_rect.x += ui_value_rect.w/2 - 25
+    # surface.blit(xo_images[0 if turn=='x' else 1], turn_rect)
+
+
 
 
 

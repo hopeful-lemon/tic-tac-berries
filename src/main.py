@@ -29,7 +29,7 @@ x_img = pygame.image.load("assets/img/x.png")
 o_img = pygame.image.load("assets/img/o.png")
 x_img = pygame.transform.scale(x_img, xo_dim)
 o_img = pygame.transform.scale(o_img, xo_dim)
-play_btn = pygame.image.load("assets/img/play_btn.png")
+play_btn = pygame.image.load("assets/img/ui_btn_play.png")
 play_btn = pygame.transform.scale(play_btn, (90,90))
 ui_panel = pygame.image.load("assets/img/ui_panel.png")
 
@@ -37,9 +37,11 @@ ui_value = pygame.image.load("assets/img/ui_value.png")
 
 ui_btn_menu = pygame.image.load("assets/img/ui_btn_menu.png")
 ui_btn_music = pygame.image.load("assets/img/ui_btn_music.png")
+ui_btn_replay = pygame.image.load("assets/img/ui_btn_replay.png")
+
 ui_btn_menu = pygame.transform.scale(ui_btn_menu, btn_dim)
 ui_btn_music = pygame.transform.scale(ui_btn_music, btn_dim)
-
+ui_btn_replay = pygame.transform.scale(ui_btn_replay, btn_dim)
 menu_bg = pygame.image.load("assets/img/menu_bg.png")
 sky = pygame.image.load("assets/img/bg.png")
 
@@ -72,10 +74,12 @@ def game_scn_draw():
 
     draw_board(screen, game, grid_pos, cell_dim, grid_color, x_img, o_img)
     draw_bottom_bar(screen, size, game.get_turn(), [x_img, o_img], ui_panel, ui_value, ui_btn_music, ui_btn_menu)
+    draw_top_bar(screen, size, game, [x_img, o_img], ui_panel, ui_value, ui_btn_replay)
 
 def game_scn_handle_event(event):
     cells = get_cells(grid_pos, cell_dim, grid_dim)
     bottom_bar_rects = get_bottom_bar_rects(size, ui_panel, ui_value, ui_btn_music, ui_btn_menu)
+    top_bar_rects = get_top_bar_rects(size, ui_panel, ui_value, ui_btn_replay)
     
     if event.type == pygame.QUIT:
         sys.exit()
@@ -92,6 +96,8 @@ def game_scn_handle_event(event):
                 pygame.mixer.music.pause()
             else:
                 pygame.mixer.music.unpause()
+        if top_bar_rects[2].collidepoint(event.pos):
+            game.reset()
 
 menu_scn = Scene(menu_scn_draw, menu_scn_handle_event)
 game_scn = Scene(game_scn_draw, game_scn_handle_event)
