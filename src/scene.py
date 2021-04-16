@@ -2,7 +2,7 @@
 class Scene_manager:
     def __init__(self):
         self.scenes = []
-        self.current_scene = 1
+        self.current_scene = 0
 
     def switch(self, scene_num):
         self.current_scene = scene_num

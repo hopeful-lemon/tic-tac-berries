@@ -45,6 +45,9 @@ ui_btn_replay = pygame.transform.scale(ui_btn_replay, btn_dim)
 menu_bg = pygame.image.load("assets/img/menu_bg.png")
 sky = pygame.image.load("assets/img/bg.png")
 
+pygame.font.init()
+default_font = pygame.font.Font("assets/fonts/Fipps-Regular.otf", 25)
+
 # Game
 game = Game()
 
@@ -74,12 +77,12 @@ def game_scn_draw():
 
     draw_board(screen, game, grid_pos, cell_dim, grid_color, x_img, o_img)
     draw_bottom_bar(screen, size, game.get_turn(), [x_img, o_img], ui_panel, ui_value, ui_btn_music, ui_btn_menu)
-    draw_top_bar(screen, size, game, [x_img, o_img], ui_panel, ui_value, ui_btn_replay)
+    draw_top_bar(screen, size, game, default_font, [x_img, o_img], ui_panel, ui_value, ui_btn_replay)
 
 def game_scn_handle_event(event):
     cells = get_cells(grid_pos, cell_dim, grid_dim)
     bottom_bar_rects = get_bottom_bar_rects(size, ui_panel, ui_value, ui_btn_music, ui_btn_menu)
-    top_bar_rects = get_top_bar_rects(size, ui_panel, ui_value, ui_btn_replay)
+    top_bar_rects = get_top_bar_rects(size,  [x_img, o_img], ui_panel, ui_value, ui_btn_replay)
     
     if event.type == pygame.QUIT:
         sys.exit()
@@ -90,7 +93,7 @@ def game_scn_handle_event(event):
                     game.play(l, c)
         if bottom_bar_rects[1].collidepoint(event.pos):
             scn_mgr.switch(0)
-            #menu
+            
         elif bottom_bar_rects[2].collidepoint(event.pos):
             if pygame.mixer.music.get_busy():
                 pygame.mixer.music.pause()
